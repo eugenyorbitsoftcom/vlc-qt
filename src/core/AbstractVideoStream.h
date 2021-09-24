@@ -64,8 +64,7 @@ protected:
         \brief Unlock callback
      */
     virtual void unlockCallback(void *picture,
-                                void *const *planes)
-        = 0;
+                                void * const *planes) = 0;
 
     /*!
         \brief Display callback
@@ -79,8 +78,7 @@ protected:
                                     unsigned *width,
                                     unsigned *height,
                                     unsigned *pitches,
-                                    unsigned *lines)
-        = 0;
+                                    unsigned *lines) = 0;
 
     /*!
         \brief Format cleanup callback
@@ -92,7 +90,7 @@ private:
                                       void **planes);
     static void unlockCallbackInternal(void *opaque,
                                        void *picture,
-                                       void *const *planes);
+                                       void * const *planes);
     static void displayCallbackInternal(void *opaque,
                                         void *picture);
 

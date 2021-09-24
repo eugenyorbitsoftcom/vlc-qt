@@ -28,7 +28,8 @@ char const *const *VideoMaterialShader::attributeNames() const
     static const char *names[] = {
         "targetVertex",
         "textureCoordinates",
-        0};
+        0
+    };
     return names;
 }
 

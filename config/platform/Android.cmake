@@ -15,21 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this library. If not, see <http://www.gnu.org/licenses/>.
 #############################################################################
-# Set platform specific settings #
-##################################
-IF(MINGW OR MSVC)
-    INCLUDE(Windows)
-ENDIF()
+# Android Extra #
+#################
+SET(LIBVLC_LIBRARY "${VLC_ANDROID_PATH}/libvlc/jni/libs/${ANDROID_ABI}/libvlc.so")
+SET(LIBVLC_INCLUDE_DIR "${VLC_ANDROID_PATH}/vlc/include")
 
-IF(NOT IOS AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    INCLUDE(macOS)
-ENDIF()
+# Install
+FILE(GLOB ANDROID_COMPAT_LIB ${VLC_ANDROID_PATH}/libvlc/jni/libs/${ANDROID_ABI}/libcompat*)
 
-# Mobile
-IF(${CMAKE_SYSTEM_NAME} MATCHES "Android")
-    INCLUDE(Android)
-ENDIF()
-
-IF(IOS AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    INCLUDE(iOS)
-ENDIF()
+INSTALL(FILES ${LIBVLC_LIBRARY} DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
+INSTALL(FILES ${ANDROID_COMPAT_LIB} DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

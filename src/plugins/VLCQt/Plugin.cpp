@@ -1,6 +1,6 @@
 /****************************************************************************
 * VLC-Qt - Qt and libvlc connector library
-* Copyright (C) 2012 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2016 Tadej Novak <tadej@tano.si>
 *
 * This library is free software: you can redistribute it and/or modify
 * it under the terms of the GNU Lesser General Public License as published
@@ -16,32 +16,22 @@
 * along with this library. If not, see <http://www.gnu.org/licenses/>.
 *****************************************************************************/
 
-#include <QtCore/QDebug>
-#include <vlc/vlc.h>
+#include <QtQml/QQmlExtensionPlugin>
 
-#include "core/Error.h"
+#include "qml/Qml.h"
 
-QString VlcError::errmsg()
+class Q_DECL_EXPORT VlcPluginQml : public QQmlExtensionPlugin
 {
-    QString error;
-    if (libvlc_errmsg()) {
-        error = QString::fromUtf8(libvlc_errmsg());
-        libvlc_clearerr();
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "si.tano.VLC-Qt")
+
+public:
+    void registerTypes(const char *uri)
+    {
+        Q_ASSERT(uri == QLatin1String("VLCQt"));
+
+        VlcQml::registerTypes();
     }
+};
 
-    return error;
-}
-
-void VlcError::showErrmsg()
-{
-    // Outputs libvlc error message if there is any
-    QString error = errmsg();
-    if (!error.isEmpty()) {
-        qWarning() << "libvlc"
-                   << "Error:" << error;
-    }
-}
-
-#if !LIBVLCQT_MOBILE
-void VlcError::clearerr() { }
-#endif
+#include "Plugin.moc"

@@ -28,11 +28,9 @@ static inline VlcAbstractVideoStream *p_this(void *opaque) { return static_cast<
 static inline VlcAbstractVideoStream *p_this(void **opaque) { return static_cast<VlcAbstractVideoStream *>(*opaque); }
 #define P_THIS p_this(opaque)
 
-VlcAbstractVideoStream::VlcAbstractVideoStream()
-{
-}
+VlcAbstractVideoStream::VlcAbstractVideoStream() { }
 
-VlcAbstractVideoStream::~VlcAbstractVideoStream() {}
+VlcAbstractVideoStream::~VlcAbstractVideoStream() { }
 
 void VlcAbstractVideoStream::setCallbacks(VlcMediaPlayer *player)
 {
